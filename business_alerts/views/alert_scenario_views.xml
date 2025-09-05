@@ -32,6 +32,8 @@
                     <group name="top">
                         <group>
                             <field name="name"/>
+                            <field name="alert_type"/>
+                            <field name="mail_template_id" invisible="alert_type != 'email'" required="alert_type == 'email'"/>
                             <field name="model_id"/>
                             <field name="alert_function"/>
                             <field name="time_frame" invisible="alert_function != 'time'" required="alert_function == 'time'" />

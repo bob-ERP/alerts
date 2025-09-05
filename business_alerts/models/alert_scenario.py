@@ -113,6 +113,18 @@ class AlertScenario(models.Model):
         tracking=True,
         help="User responsible for this alert; their name, email, and phone are sent with the alert payload.",
     )
+    alert_type = fields.Selection(
+        [("webhook", "Webhook"), ("email", "Email")],
+        required=True,
+        default="webhook",
+        tracking=True,
+        help="Method used to send the alert: Webhook or Email (using an email template).",
+    )
+    mail_template_id = fields.Many2one(
+        "mail.template",
+        string="Email Template",
+        tracking=True,
+    )
 
     def cron_trigger_alert_jobs(self):
         alerts = self.env["alert.scenario"].search([("state", "=", "enabled")])
@@ -125,36 +137,49 @@ class AlertScenario(models.Model):
         alerts.write({"state": "enabled"})
 
     def send_alert(self, record=None, msg=None, url=None):
-        if not self.webhook_url:
-            _log.warning("Alert URL is not set. %s", self.name)
-            return
-        web_base_url = self.env["ir.config_parameter"].sudo().get_param("web.base.url")
-        record_odoo_url = ""
-        if not msg:
-            msg = self.notification
-        if record:
-            record_odoo_url = url_join(
-                web_base_url, f"/web#id={record.id}&model={record._name}&view_type=form"
+        if self.alert_type == "webhook":
+            if not self.webhook_url:
+                _log.warning("Alert URL is not set. %s", self.name)
+                return
+            web_base_url = (
+                self.env["ir.config_parameter"].sudo().get_param("web.base.url")
             )
-        try:
-            post_res = requests.post(
-                self.webhook_url,
-                json={
-                    "Message": msg,
-                    "Client": self.env.company.display_name,
-                    "AlertType": "Warning",
-                    "Severity": self.severity.capitalize(),
-                    "URL": record_odoo_url or url,
-                    "AlertAge": "",
-                    "Name": self.user_id.partner_id.name if self.user_id else "",
-                    "Email": self.user_id.partner_id.email if self.user_id else "",
-                    "Phone": self.user_id.partner_id.phone if self.user_id else "",
-                },
-                timeout=30,
+            record_odoo_url = ""
+            if not msg:
+                msg = self.notification
+            if record:
+                record_odoo_url = url_join(
+                    web_base_url,
+                    f"/web#id={record.id}&model={record._name}&view_type=form",
+                )
+            try:
+                post_res = requests.post(
+                    self.webhook_url,
+                    json={
+                        "Message": msg,
+                        "Client": self.env.company.display_name,
+                        "AlertType": "Warning",
+                        "Severity": self.severity.capitalize(),
+                        "URL": record_odoo_url or url,
+                        "AlertAge": "",
+                        "Name": self.user_id.partner_id.name if self.user_id else "",
+                        "Email": self.user_id.partner_id.email if self.user_id else "",
+                        "Phone": self.user_id.partner_id.phone if self.user_id else "",
+                    },
+                    timeout=30,
+                )
+                return post_res
+            except Exception as e:
+                _log.error("Cant send error alert. Please check Alert URL. %s", e)
+        else:
+            if not self.mail_template_id:
+                _log.warning("Email template is not set. %s", self.name)
+                return
+            self.mail_template_id.send_mail(
+                self.id,
+                force_send=True,
+                email_values={"email_to": self.user_id.email},
             )
-            return post_res
-        except Exception as e:
-            _log.error("Cant send error alert. Please check Alert URL. %s", e)
 
     def _get_url_by_action(self, view_type="list"):
         web_base_url = self.env["ir.config_parameter"].sudo().get_param("web.base.url")

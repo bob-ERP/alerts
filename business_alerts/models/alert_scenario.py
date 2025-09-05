@@ -178,7 +178,6 @@ class AlertScenario(models.Model):
             self.mail_template_id.send_mail(
                 self.id,
                 force_send=True,
-                email_values={"email_to": self.user_id.email},
             )
 
     def _get_url_by_action(self, view_type="list"):

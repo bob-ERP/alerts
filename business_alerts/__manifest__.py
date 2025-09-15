@@ -9,7 +9,7 @@
         "Philip B.",
         "achulii",
     ],
-    "license": "OPL-1",
+    "license": "LGPL-3",
     "depends": ["mail"],
     "data": [
         "security/ir.model.access.csv",

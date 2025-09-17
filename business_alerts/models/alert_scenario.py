@@ -235,7 +235,7 @@ class AlertScenario(models.Model):
                     _log.warning("Time unit is not set. %s", record.name)
                     return
 
-                last_record = self.env[self.model].search(
+                last_record = self.env[record.model].search(
                     domain, order="id desc", limit=1
                 )
                 if not last_record:

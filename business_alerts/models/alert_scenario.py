@@ -232,17 +232,17 @@ class AlertScenario(models.Model):
             elif record.alert_function == "time":
                 if not record.time_field_id:
                     _log.warning("Time field is not set. %s", record.name)
-                    return
+                    continue
                 if not record.time_unit:
                     _log.warning("Time unit is not set. %s", record.name)
-                    return
+                    continue
 
                 last_record = self.env[record.model].search(
                     domain, order="id desc", limit=1
                 )
                 if not last_record:
                     _log.warning("There is no records. %s", record.name)
-                    return
+                    continue
 
                 time_val = getattr(last_record, record.time_field_id.name, None)
                 if not time_val:

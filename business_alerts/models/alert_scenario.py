@@ -71,6 +71,7 @@ class AlertScenario(models.Model):
         tracking=True,
         help="Rule that selects the records to evaluate on the chosen Model."
         "Advanced: supports datetime in expressions (e.g., ['&', ('state','=','error'), ('create_date','<', datetime.datetime.now()-datetime.timedelta(hours=1))]).",
+        default="[]",
     )
     notification = fields.Text(
         tracking=True,

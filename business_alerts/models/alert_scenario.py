@@ -156,6 +156,7 @@ class AlertScenario(models.Model):
                 post_res = requests.post(
                     self.webhook_url,
                     json={
+                        "AlertName": self.name,
                         "Message": msg,
                         "Client": self.env.company.display_name,
                         "AlertType": "Warning",

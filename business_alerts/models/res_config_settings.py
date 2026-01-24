@@ -13,11 +13,11 @@ class ResConfigSettigs(models.TransientModel):
         config_parameter="business_alerts.reset_suspended_alerts",
     )
     evaluation_time_frame = fields.Integer(
-        string="Run Every",
+        string="Alert Evaluation Interval",
         config_parameter="business_alerts.time_frame",
     )
     evaluation_time_unit = fields.Selection(
-        string="Interval Unit",
+        string="Alert Evaluation Interval Unit",
         selection=[
             ("minutes", "Minutes"),
             ("hours", "Hours"),
@@ -29,11 +29,11 @@ class ResConfigSettigs(models.TransientModel):
     )
 
     reset_suspended_alerts_time_frame = fields.Integer(
-        string="Run Every",
+        string="Reset Suspended Alerts Interval",
         config_parameter="business_alerts.reset_suspended_alerts_time_frame",
     )
     reset_suspended_alerts_time_unit = fields.Selection(
-        string="Interval Unit",
+        string="Reset Suspended Alerts Interval Unit",
         selection=[
             ("minutes", "Minutes"),
             ("hours", "Hours"),

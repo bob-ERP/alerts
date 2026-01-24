@@ -110,7 +110,7 @@ class AlertScenario(models.Model):
     )
     user_id = fields.Many2one(
         "res.users",
-        string="Responsible User",
+        string="Alert Owner",
         tracking=True,
         help="User responsible for this alert; their name, email, and phone are sent with the alert payload.",
     )

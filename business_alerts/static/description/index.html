@@ -1,55 +1,226 @@
-<!-- AUTO-DOC START -->
-<section class="oe_container">
-  <div class="row">
-    <h2 class="oe_container">Business Alerts</h2>
-  </div>
-</section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Alerts</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+<body style="margin:0;padding:0;font-family:'DM Sans','Roboto',sans-serif;background-color:#FAFAFA;color:#151515;line-height:1.7;">
 
-<!-- Purpose -->
-<section class="oe_container">
-  <h4>Why This Module Exists</h4>
-  <h5>This module enables sending alerts to n8n from Odoo, allowing for automated notifications and integrations with
-    external workflows. It is designed for technical users who need to trigger external processes based on Odoo events.
-    The module is intended to streamline alerting and automation tasks.</h5>
-</section>
-
-<!-- Setup and Configuration -->
-<section class="oe_container">
-  <h4>Set-up / Configuration</h4>
-  <ul>
-    <li>Assign appropriate security groups as defined in <code>security/groups.xml</code>.</li>
-    <li>Configure alert scenarios in the module's settings.</li>
-    <li>Review and adjust scheduled actions in <code>data/cron.xml</code> if needed.</li>
-  </ul>
-</section>
-
-<!-- Functionalities -->
-<section class="oe_container">
-  <h4>Functionalities</h4>
-  <ul>
-    <li>Sends alerts from Odoo to n8n for further processing or integration.</li>
-    <li>Supports configuration of custom alert scenarios.</li>
-    <li>Includes security and access control for alert management.</li>
-  </ul>
-</section>
-
-<!-- Screenshots -->
-<div class="section-box">
-  <section class="oe_container">
-    <h4>Screenshots</h4>
-    <div>
-      <img src="src/ss-1.png" alt="Screenshot 1" style="display:block;width:100%;max-width:1000px;margin:32px auto;">
-      <img src="src/ss-2.png" alt="Screenshot 2" style="display:block;width:100%;max-width:1000px;margin:32px auto;">
+    <!-- Header -->
+    <div style="background:#151515;color:white;padding:30px 20px;text-align:center;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:-50%;right:-20%;width:500px;height:500px;background:radial-gradient(circle,rgba(255,74,0,0.15) 0%,transparent 70%);border-radius:50%;"></div>
+        <div style="position:absolute;bottom:-30%;left:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(255,74,0,0.08) 0%,transparent 70%);border-radius:50%;"></div>
+        <h1 style="font-size:2.8em;font-weight:700;margin:0 0 12px 0;position:relative;z-index:1;color:#FFFFFF;">Business <span style="color:#FF4A00;">Alerts</span></h1>
+        <p style="font-size:1.15em;color:#CCCCCC;font-weight:300;position:relative;z-index:1;max-width:800px;margin:0 auto;">Configurable alert scenarios on any Odoo model — count and time-based conditions evaluated on a schedule, delivered to an n8n webhook or by email</p>
+        <div style="margin-top:24px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;position:relative;z-index:1;">
+            <span style="padding:5px 16px;border-radius:20px;font-size:0.8em;font-weight:600;background:#FF4A00;color:#FFFFFF;">Production Ready</span>
+            <span style="padding:5px 16px;border-radius:20px;font-size:0.8em;font-weight:600;background:rgba(255,255,255,0.15);color:#FFFFFF;border:1px solid rgba(255,255,255,0.3);">LGPL-3</span>
+            <span style="padding:5px 16px;border-radius:20px;font-size:0.8em;font-weight:600;background:rgba(255,255,255,0.15);color:#FFFFFF;border:1px solid rgba(255,255,255,0.3);">Odoo 19.0</span>
+            <a href="https://itsbob.co" target="_blank" style="padding:5px 16px;border-radius:20px;font-size:0.8em;font-weight:600;background:rgba(255,255,255,0.15);color:#FFFFFF;border:1px solid rgba(255,255,255,0.3);text-decoration:none;">🌐 itsbob.co</a>
+            <a href="https://github.com/bob-ERP/alerts" target="_blank" style="padding:5px 16px;border-radius:20px;font-size:0.8em;font-weight:600;background:rgba(255,255,255,0.15);color:#FFFFFF;border:1px solid rgba(255,255,255,0.3);text-decoration:none;display:inline-flex;align-items:center;gap:6px;">
+                <i class="fab fa-github" style="font-size:14px;"></i>
+                GitHub
+            </a>
+        </div>
     </div>
-  </section>
-</div>
 
-<!-- Support Info -->
-<section class="oe_container">
-  <h4>Support</h4>
-  <p><b>Developer:</b> bobco GmbH</p>
-  <p><b>Version:</b> 17.0.1.0.4</p>
-  <p><b>License:</b> OPL-1</p>
-  <p><b>Website:</b> <a href="#">N/A</a></p>
-</section>
-<!-- AUTO-DOC END -->
+    <div style="max-width:880px;margin:0 auto;padding:50px 20px;">
+
+        <!-- Overview -->
+        <section style="margin-bottom:48px;">
+            <div style="font-size:1.5em;font-weight:700;color:#151515;margin-bottom:20px;display:flex;align-items:center;gap:10px;">
+                <span style="width:4px;height:28px;background:#FF4A00;border-radius:2px;display:inline-block;"></span> Overview
+            </div>
+            <p style="font-size:1.05em;color:#222222;line-height:1.8;">
+                Operational problems in Odoo usually announce themselves as data: stuck queue jobs, orders without a delivery, an import that stopped arriving. <strong>Business Alerts</strong> lets an administrator describe such conditions declaratively — a model, a domain, a threshold — as <strong style="color:#FF4A00;">alert scenarios</strong>. A scheduled job evaluates all enabled scenarios and, when one triggers, posts a JSON payload to a webhook (built for <strong>n8n</strong>) or sends a template email. Triggered alerts suspend themselves to avoid alarm storms and can be re-armed manually or by a second scheduled job.
+            </p>
+        </section>
+
+        <!-- Features -->
+        <section style="margin-bottom:48px;">
+            <div style="font-size:1.5em;font-weight:700;color:#151515;margin-bottom:20px;display:flex;align-items:center;gap:10px;">
+                <span style="width:4px;height:28px;background:#FF4A00;border-radius:2px;display:inline-block;"></span> Features
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:16px;">
+
+                <div style="background:white;border-radius:10px;padding:24px;border:1px solid #EAEAEA;">
+                    <div style="width:40px;height:40px;border-radius:8px;background:rgba(255,74,0,0.08);display:flex;align-items:center;justify-content:center;font-size:1.2em;margin-bottom:14px;">🔢</div>
+                    <h3 style="font-size:1em;font-weight:600;color:#151515;margin:0 0 6px 0;">Count Alerts</h3>
+                    <p style="font-size:0.9em;color:#333333;line-height:1.6;margin:0;">Trigger when the number of records matching the domain reaches the <em>Trigger Value</em> — e.g. "≥ 1 queue job in <em>error</em> for over an hour". Domains support <code style="background:#F0F0F0;padding:1px 5px;border-radius:4px;font-size:0.9em;">datetime</code> expressions, evaluated via <code style="background:#F0F0F0;padding:1px 5px;border-radius:4px;font-size:0.9em;">safe_eval</code>.</p>
+                </div>
+
+                <div style="background:white;border-radius:10px;padding:24px;border:1px solid #EAEAEA;">
+                    <div style="width:40px;height:40px;border-radius:8px;background:rgba(255,74,0,0.08);display:flex;align-items:center;justify-content:center;font-size:1.2em;margin-bottom:14px;">⏱️</div>
+                    <h3 style="font-size:1em;font-weight:600;color:#151515;margin:0 0 6px 0;">Time Alerts</h3>
+                    <p style="font-size:0.9em;color:#333333;line-height:1.6;margin:0;">Trigger when the <em>age</em> of the last matching record (by any date/datetime field, e.g. <code style="background:#F0F0F0;padding:1px 5px;border-radius:4px;font-size:0.9em;">create_date</code>) exceeds a threshold in seconds, minutes, hours, days or years — "no new Shopify order in 6 hours".</p>
+                </div>
+
+                <div style="background:white;border-radius:10px;padding:24px;border:1px solid #EAEAEA;">
+                    <div style="width:40px;height:40px;border-radius:8px;background:rgba(255,74,0,0.08);display:flex;align-items:center;justify-content:center;font-size:1.2em;margin-bottom:14px;">🔗</div>
+                    <h3 style="font-size:1em;font-weight:600;color:#151515;margin:0 0 6px 0;">Webhook Delivery (n8n)</h3>
+                    <p style="font-size:0.9em;color:#333333;line-height:1.6;margin:0;">POSTs a JSON payload — alert name, message, company, severity, deep link into the matching Odoo view, and the alert owner's name / email / phone — to any webhook URL. Email delivery via a <code style="background:#F0F0F0;padding:1px 5px;border-radius:4px;font-size:0.9em;">mail.template</code> is available as an alternative.</p>
+                </div>
+
+                <div style="background:white;border-radius:10px;padding:24px;border:1px solid #EAEAEA;">
+                    <div style="width:40px;height:40px;border-radius:8px;background:rgba(255,74,0,0.08);display:flex;align-items:center;justify-content:center;font-size:1.2em;margin-bottom:14px;">🔕</div>
+                    <h3 style="font-size:1em;font-weight:600;color:#151515;margin:0 0 6px 0;">Self-Suspending, Self-Re-Arming</h3>
+                    <p style="font-size:0.9em;color:#333333;line-height:1.6;margin:0;">A fired alert switches itself to <em>Suspended</em> so it doesn't fire on every cron tick. The <em>Reset Suspended Alerts</em> job (or a manual click) re-enables it. Every send is logged in the scenario's chatter.</p>
+                </div>
+
+                <div style="background:white;border-radius:10px;padding:24px;border:1px solid #EAEAEA;">
+                    <div style="width:40px;height:40px;border-radius:8px;background:rgba(255,74,0,0.08);display:flex;align-items:center;justify-content:center;font-size:1.2em;margin-bottom:14px;">⚙️</div>
+                    <h3 style="font-size:1em;font-weight:600;color:#151515;margin:0 0 6px 0;">Cron Control from Settings</h3>
+                    <p style="font-size:0.9em;color:#333333;line-height:1.6;margin:0;">Both scheduled jobs (evaluation &amp; reset) are switched on/off and re-timed directly from <strong>Settings → Business Alerts</strong> — no digging in <em>Scheduled Actions</em>.</p>
+                </div>
+
+                <div style="background:white;border-radius:10px;padding:24px;border:1px solid #EAEAEA;">
+                    <div style="width:40px;height:40px;border-radius:8px;background:rgba(255,74,0,0.08);display:flex;align-items:center;justify-content:center;font-size:1.2em;margin-bottom:14px;">🧪</div>
+                    <h3 style="font-size:1em;font-weight:600;color:#151515;margin:0 0 6px 0;">Tested</h3>
+                    <p style="font-size:0.9em;color:#333333;line-height:1.6;margin:0;">Automated tests cover count and time triggering (webhook mocked, payload asserted), the below-threshold case, the suspend/reset cycle and missing-URL safety.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Configuration -->
+        <section style="margin-bottom:48px;">
+            <div style="font-size:1.5em;font-weight:700;color:#151515;margin-bottom:20px;display:flex;align-items:center;gap:10px;">
+                <span style="width:4px;height:28px;background:#FF4A00;border-radius:2px;display:inline-block;"></span> Configuration
+            </div>
+            <p style="font-size:0.95em;color:#333333;margin:0 0 20px 0;">Scenarios are managed in the <strong>Business Alerts</strong> app; the evaluation schedule lives under <strong>Settings → Business Alerts</strong> (system administrators only).</p>
+
+            <div style="background:white;border-radius:10px;padding:28px;border:1px solid #EAEAEA;">
+                <table style="width:100%;border-collapse:collapse;">
+                    <thead>
+                        <tr>
+                            <th style="text-align:left;padding:10px 0;border-bottom:2px solid #F0F0F0;color:#555555;font-size:0.8em;text-transform:uppercase;letter-spacing:0.5px;">Field</th>
+                            <th style="text-align:left;padding:10px 0;border-bottom:2px solid #F0F0F0;color:#555555;font-size:0.8em;text-transform:uppercase;letter-spacing:0.5px;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding:14px 16px 14px 0;border-bottom:1px solid #F0F0F0;vertical-align:top;">
+                                <span style="display:inline-block;background:#F0F0F0;padding:3px 10px;border-radius:6px;font-size:0.82em;font-family:monospace;color:#222222;white-space:nowrap;">Model / Domain</span>
+                            </td>
+                            <td style="padding:14px 0;border-bottom:1px solid #F0F0F0;font-size:0.9em;color:#333333;">Which records to watch: any <code style="background:#F0F0F0;padding:1px 5px;border-radius:4px;font-size:0.9em;">ir.model</code> plus a record domain (<code style="background:#F0F0F0;padding:1px 5px;border-radius:4px;font-size:0.9em;">records_domain</code>).</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:14px 16px 14px 0;border-bottom:1px solid #F0F0F0;vertical-align:top;">
+                                <span style="display:inline-block;background:#F0F0F0;padding:3px 10px;border-radius:6px;font-size:0.82em;font-family:monospace;color:#222222;white-space:nowrap;">Alert Function</span>
+                            </td>
+                            <td style="padding:14px 0;border-bottom:1px solid #F0F0F0;font-size:0.9em;color:#333333;"><em>Count</em> (with <code style="background:#F0F0F0;padding:1px 5px;border-radius:4px;font-size:0.9em;">value</code> threshold) or <em>Time</em> (with <code style="background:#F0F0F0;padding:1px 5px;border-radius:4px;font-size:0.9em;">time_frame</code>, <code style="background:#F0F0F0;padding:1px 5px;border-radius:4px;font-size:0.9em;">time_unit</code> and a date/datetime <code style="background:#F0F0F0;padding:1px 5px;border-radius:4px;font-size:0.9em;">time_field_id</code>).</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:14px 16px 14px 0;border-bottom:1px solid #F0F0F0;vertical-align:top;">
+                                <span style="display:inline-block;background:#F0F0F0;padding:3px 10px;border-radius:6px;font-size:0.82em;font-family:monospace;color:#222222;white-space:nowrap;">Delivery</span>
+                            </td>
+                            <td style="padding:14px 0;border-bottom:1px solid #F0F0F0;font-size:0.9em;color:#333333;"><em>Webhook</em> (with <code style="background:#F0F0F0;padding:1px 5px;border-radius:4px;font-size:0.9em;">webhook_url</code>) or <em>Email</em> (with <code style="background:#F0F0F0;padding:1px 5px;border-radius:4px;font-size:0.9em;">mail_template_id</code>); plus <em>Severity</em>, <em>Alert Owner</em> and the window <em>Action</em> used to build the deep link.</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:14px 16px 14px 0;vertical-align:top;">
+                                <span style="display:inline-block;background:#F0F0F0;padding:3px 10px;border-radius:6px;font-size:0.82em;font-family:monospace;color:#222222;white-space:nowrap;">Settings toggles</span>
+                            </td>
+                            <td style="padding:14px 0;font-size:0.9em;color:#333333;"><code style="background:#F0F0F0;padding:1px 5px;border-radius:4px;font-size:0.9em;">alerts_evaluation</code> and <code style="background:#F0F0F0;padding:1px 5px;border-radius:4px;font-size:0.9em;">reset_suspended_alerts</code> with their interval number/unit — writing them reconfigures the two <code style="background:#F0F0F0;padding:1px 5px;border-radius:4px;font-size:0.9em;">ir.cron</code> records.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Flow -->
+        <section style="margin-bottom:48px;">
+            <div style="font-size:1.5em;font-weight:700;color:#151515;margin-bottom:20px;display:flex;align-items:center;gap:10px;">
+                <span style="width:4px;height:28px;background:#FF4A00;border-radius:2px;display:inline-block;"></span> Evaluation Flow
+            </div>
+            <div style="background:white;border-radius:10px;padding:20px 24px;border:1px solid #EAEAEA;">
+                <p style="margin-bottom:8px;color:#222222;font-size:0.95em;"><span style="color:#FF4A00;font-weight:700;">1.</span> The <em>Business Alerts: Alerts</em> cron runs <code style="background:#F0F0F0;padding:1px 6px;border-radius:4px;font-size:0.9em;">cron_trigger_alert_jobs()</code> on all <em>Enabled</em> scenarios</p>
+                <p style="margin-bottom:8px;color:#222222;font-size:0.95em;"><span style="color:#FF4A00;font-weight:700;">2.</span> Each scenario's domain is <code style="background:#F0F0F0;padding:1px 6px;border-radius:4px;font-size:0.9em;">safe_eval</code>'d (with a sandboxed <code style="background:#F0F0F0;padding:1px 6px;border-radius:4px;font-size:0.9em;">datetime</code>) and its condition checked — record count vs. threshold, or age of the newest matching record</p>
+                <p style="margin-bottom:8px;color:#222222;font-size:0.95em;"><span style="color:#FF4A00;font-weight:700;">3.</span> On trigger, <code style="background:#F0F0F0;padding:1px 6px;border-radius:4px;font-size:0.9em;">send_alert()</code> POSTs the JSON payload (or sends the email), the result is logged to the chatter, and the scenario flips to <em>Suspended</em></p>
+                <p style="margin-bottom:0;color:#222222;font-size:0.95em;"><span style="color:#FF4A00;font-weight:700;">4.</span> The <em>Reset Suspended Alerts</em> cron re-enables suspended scenarios on its own schedule</p>
+            </div>
+        </section>
+
+        <!-- Technical Information -->
+        <section style="margin-bottom:48px;">
+            <div style="font-size:1.5em;font-weight:700;color:#151515;margin-bottom:20px;display:flex;align-items:center;gap:10px;">
+                <span style="width:4px;height:28px;background:#FF4A00;border-radius:2px;display:inline-block;"></span> Technical Information
+            </div>
+            <div style="background:white;border-radius:8px;border:1px solid #EAEAEA;padding:24px;">
+
+                <div>
+                    <p style="font-size:0.85em;color:#444444;text-transform:uppercase;letter-spacing:0.5px;font-weight:600;margin:0 0 14px 0;">Models</p>
+                    <div style="display:flex;flex-direction:column;gap:12px;">
+                        <div>
+                            <span style="display:inline-block;background:#F0F0F0;padding:4px 12px;border-radius:6px;font-size:0.85em;color:#222222;margin-right:10px;margin-bottom:4px;">alert.scenario</span>
+                            <span style="font-size:0.9em;color:#333333;">New model (inherits <code style="background:#F0F0F0;padding:1px 5px;border-radius:4px;font-size:0.9em;">mail.thread</code>, <code style="background:#F0F0F0;padding:1px 5px;border-radius:4px;font-size:0.9em;">mail.activity.mixin</code>) holding the scenario definition, with <code style="background:#F0F0F0;padding:1px 5px;border-radius:4px;font-size:0.9em;">process_alerts()</code>, <code style="background:#F0F0F0;padding:1px 5px;border-radius:4px;font-size:0.9em;">send_alert()</code> and both cron entry points.</span>
+                        </div>
+                        <div>
+                            <span style="display:inline-block;background:#F0F0F0;padding:4px 12px;border-radius:6px;font-size:0.85em;color:#222222;margin-right:10px;margin-bottom:4px;">res.config.settings</span>
+                            <span style="font-size:0.9em;color:#333333;">Interval toggles stored as <code style="background:#F0F0F0;padding:1px 5px;border-radius:4px;font-size:0.9em;">ir.config_parameter</code>s; <code style="background:#F0F0F0;padding:1px 5px;border-radius:4px;font-size:0.9em;">set_values()</code> writes them onto the two cron records.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top:28px;padding-top:24px;border-top:1px solid #F0F0F0;">
+                    <p style="font-size:0.85em;color:#444444;text-transform:uppercase;letter-spacing:0.5px;font-weight:600;margin:0 0 14px 0;">Odoo Dependencies</p>
+                    <span style="display:inline-block;background:#F0F0F0;padding:4px 12px;border-radius:6px;font-size:0.85em;color:#222222;margin:3px 4px 3px 0;">mail</span>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Changelog -->
+        <section style="margin-bottom:48px;">
+            <div style="font-size:1.5em;font-weight:700;color:#151515;margin-bottom:20px;display:flex;align-items:center;gap:10px;">
+                <span style="width:4px;height:28px;background:#FF4A00;border-radius:2px;display:inline-block;"></span> Changelog
+            </div>
+            <div style="background:white;border-radius:10px;padding:28px;border:1px solid #EAEAEA;">
+                <div style="margin-bottom:8px;">
+                    <span style="display:inline-block;background:#FF4A00;color:white;padding:3px 10px;border-radius:6px;font-size:0.8em;font-weight:600;font-family:monospace;">19.0.1.0.0</span>
+                    <span style="margin-left:8px;font-size:0.82em;color:#888888;">latest · 2026-07-02</span>
+                </div>
+                <ul style="margin:12px 0 0 0;padding-left:20px;color:#222222;font-size:0.9em;line-height:1.9;">
+                    <li><span style="color:#FF4A00;font-weight:600;">FEAT</span>: Migration to Odoo 19</li>
+                    <li><span style="color:#FF4A00;font-weight:600;">FIX</span>: Removed <code style="background:#F0F0F0;padding:1px 5px;border-radius:4px;font-size:0.9em;">target="inline"</code> from the settings action (selection value removed in Odoo 19)</li>
+                    <li><span style="color:#FF4A00;font-weight:600;">TEST</span>: Alert triggering, suspend/reset cycle and webhook payload tests</li>
+                </ul>
+                <div style="margin:24px 0 8px 0;">
+                    <span style="display:inline-block;background:#F0F0F0;color:#333333;padding:3px 10px;border-radius:6px;font-size:0.8em;font-weight:600;font-family:monospace;">18.0.1.0.2</span>
+                </div>
+                <ul style="margin:12px 0 0 0;padding-left:20px;color:#222222;font-size:0.9em;line-height:1.9;">
+                    <li><span style="color:#FF4A00;font-weight:600;">FEAT</span>: Count &amp; time alert scenarios, n8n webhook / email delivery, suspend &amp; reset crons, settings integration</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Credits -->
+        <section style="margin-bottom:48px;">
+            <div style="font-size:1.5em;font-weight:700;color:#151515;margin-bottom:20px;display:flex;align-items:center;gap:10px;">
+                <span style="width:4px;height:28px;background:#FF4A00;border-radius:2px;display:inline-block;"></span> Credits
+            </div>
+            <div style="background:white;border-radius:10px;padding:32px;border:1px solid #EAEAEA;text-align:center;">
+                <p style="color:#555555;font-size:0.85em;margin:0 0 8px 0;">Developed &amp; maintained by</p>
+                <div style="font-size:1.3em;font-weight:700;color:#151515;margin-bottom:4px;">bobco GmbH</div>
+                <p style="color:#333333;font-size:0.9em;margin:4px 0 0 0;">ERP &amp; Operations Consulting for Growing Companies</p>
+                <p style="color:#555555;font-size:0.85em;margin:10px 0 0 0;">Maintainers: ilyas · Philip B. · achulii</p>
+                <div style="margin-top:16px;display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+                    <a href="https://itsbob.co" target="_blank" style="color:#FF4A00;text-decoration:none;font-size:0.9em;font-weight:500;">itsbob.co</a>
+                    <span style="color:#DDD;">|</span>
+                    <a href="mailto:hi@itsbob.co" style="color:#FF4A00;text-decoration:none;font-size:0.9em;font-weight:500;">hi@itsbob.co</a>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <div style="background:#151515;color:#AAAAAA;padding:28px 20px;text-align:center;font-size:0.85em;">
+        <p style="margin:0;">Licensed under <strong style="color:#FF4A00;">LGPL-3</strong></p>
+        <p style="margin-top:6px;">Made with 🫀 in Berlin · © 2026 <a href="https://itsbob.co" target="_blank" style="color:#FF4A00;text-decoration:none;">bobco GmbH</a></p>
+    </div>
+
+</body>
+</html>
